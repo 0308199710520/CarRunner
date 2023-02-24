@@ -10,7 +10,8 @@ namespace GameStateManager
     {
         public InputManager _input { get; private set; }
 
-        private GamePlayState _playState = new GamePlayState();
+        public readonly GamePlayState PlayState = new();
+        public readonly GamePauseState PauseState = new();
         
         
         
@@ -26,7 +27,7 @@ namespace GameStateManager
 
         public void Start()
         {
-            _currentState = _playState;
+            _currentState = PlayState;
             _currentState.Manager = this;
             _currentState.OnStart();
         }
