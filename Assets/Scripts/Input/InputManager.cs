@@ -6,10 +6,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
-    public RightState rightState = RightState.None;
-
-
-
+    public RightState rightState { get; private set; } = RightState.None;
+    
     public void OnRight(InputValue input)
     {
         switch (input.Get<float>())
