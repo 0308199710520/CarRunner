@@ -1,36 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class InputManager : MonoBehaviour
+
+namespace Input
 {
-    public RightState rightState { get; private set; } = RightState.None;
-    [SerializeField] private bool DEBUGINPUT = false;
-    
-    public void OnRight(InputValue input)
+    public class InputManager : MonoBehaviour
     {
-        switch (input.Get<float>())
+        public RightState RightState { get; private set; } = RightState.None;
+        [SerializeField] private bool DEBUGINPUT = false;
+    
+        public void OnRight(InputValue input)
         {
-            case -1:
+            switch (input.Get<float>())
             {
-                rightState = RightState.Left;
-                break;
+                case -1:
+                {
+                    RightState = RightState.Left;
+                    break;
+                }
+                case 1:
+                {
+                    RightState = RightState.Right;
+                    break;
+                }
+                default:
+                {
+                    RightState = RightState.None;
+                    break;
+                }
             }
-            case 1:
-            {
-                rightState = RightState.Right;
-                break;
-            }
-            default:
-            {
-                rightState = RightState.None;
-                break;
-            }
+#if UNITY_EDITOR
+            if (DEBUGINPUT) print(RightState);
+#endif
         }
-    #if UNITY_EDITOR
-        if (DEBUGINPUT) print(rightState);
-    #endif
     }
 }
