@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     public RightState rightState { get; private set; } = RightState.None;
+    [SerializeField] private bool DEBUGINPUT = false;
     
     public void OnRight(InputValue input)
     {
@@ -28,5 +29,8 @@ public class InputManager : MonoBehaviour
                 break;
             }
         }
+    #if UNITY_EDITOR
+        if (DEBUGINPUT) print(rightState);
+    #endif
     }
 }
