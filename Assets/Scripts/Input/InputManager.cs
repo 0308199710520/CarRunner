@@ -1,36 +1,67 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class InputManager : MonoBehaviour
+
+namespace Input
 {
-    public RightState rightState { get; private set; } = RightState.None;
-    [SerializeField] private bool DEBUGINPUT = false;
-    
-    public void OnRight(InputValue input)
+    public class InputManager : MonoBehaviour
     {
-        switch (input.Get<float>())
+        public RightState InputRightState { get; private set; } = RightState.None;
+        public readonly Button InputMenuAndBack  = new Button();
+        public readonly Button InputRight = new Button();
+        [SerializeField] private bool DEBUGINPUT = false;
+        
+        //Constants
+        private const float NO_INPUT = 0;
+
+        public void LateUpdate()
         {
-            case -1:
+            if (InputMenuAndBack.CurrentState == ButtonState.Down)
             {
-                rightState = RightState.Left;
-                break;
+                InputMenuAndBack.HoldTime += Time.deltaTime;
             }
-            case 1:
+
+            if (DEBUGINPUT)
             {
-                rightState = RightState.Right;
-                break;
-            }
-            default:
-            {
-                rightState = RightState.None;
-                break;
+                Debug.Log($"Switch State: CurrentState = {InputMenuAndBack.CurrentState}    Hold Time = {InputMenuAndBack.HoldTime}    Polled={InputMenuAndBack.Polled}");
+                Debug.Log($"Switch State: CurrentState = {InputRightState}");
             }
         }
-    #if UNITY_EDITOR
-        if (DEBUGINPUT) print(rightState);
-    #endif
+
+        public void OnRight(InputValue input)
+        {
+            
+            switch (input.Get<float>())
+            {
+                case -1:
+                {
+                    InputRightState = RightState.Left;
+                    break;
+                }
+                case 1:
+                {
+                    InputRightState = RightState.Right;
+                    break;
+                }
+                default:
+                {
+                    InputRightState = RightState.None;
+                    break;
+                }
+            }
+        }
+        
+        public void OnMenuAndBack(InputValue input)
+        {
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
+            if (input.Get<float>() == NO_INPUT)
+            {
+                InputMenuAndBack.OnRelease();
+            }
+            else
+            {
+                InputMenuAndBack.Held();    
+            }
+        }
     }
 }
