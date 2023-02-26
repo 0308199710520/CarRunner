@@ -1,7 +1,5 @@
 ﻿using Input;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-using UnityEngine.XR;
 
 namespace GameStateManager.States
 {
@@ -16,7 +14,7 @@ namespace GameStateManager.States
 
         public override void OnUpdate()
         {
-            MoveCube();
+            MoveCar();
             ChangeState();
         }
 
@@ -25,28 +23,32 @@ namespace GameStateManager.States
             
         }
 
-        private void MoveCube()
+        private void MoveCar()
         {
-            switch (_input.RightState)
+            switch (_input.InputRightState)
             {
                 case RightState.None:
                 {
+                    Manager.Rb.velocity = Vector3.zero;
                     break;
                 }
                 case RightState.Left:
                 {
+                    Manager.Rb.velocity = Vector3.left;
                     break;
-                    
+
                 }
                 case RightState.Right:
                 {
+                    Manager.Rb.velocity = Vector3.right;
                     break;
                 }
             }
         }
+
         private void ChangeState()
         {
-            if (_input.ChangeState.CurrentState == ButtonState.Down && ! _input.ChangeState.GetPolled())
+            if (_input.InputMenuAndBack.CurrentState == ButtonState.Down && ! _input.InputMenuAndBack.GetPolled())
             {
                 Manager.SwitchState(Manager.PauseState);
             }

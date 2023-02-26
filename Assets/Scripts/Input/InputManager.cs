@@ -6,55 +6,61 @@ namespace Input
 {
     public class InputManager : MonoBehaviour
     {
-        public RightState RightState { get; private set; } = RightState.None;
-        public Button ChangeState { get; private set; } = new Button();
+        public RightState InputRightState { get; private set; } = RightState.None;
+        public readonly Button InputMenuAndBack  = new Button();
+        public readonly Button InputRight = new Button();
         [SerializeField] private bool DEBUGINPUT = false;
-
+        
+        //Constants
+        private const float NO_INPUT = 0;
 
         public void LateUpdate()
         {
-            if (ChangeState.CurrentState == ButtonState.Down)
+            if (InputMenuAndBack.CurrentState == ButtonState.Down)
             {
-                ChangeState.HoldTime += Time.deltaTime;
+                InputMenuAndBack.HoldTime += Time.deltaTime;
             }
 
             if (DEBUGINPUT)
             {
-                Debug.Log($"Switch State: CurrentState = {ChangeState.CurrentState}    Hold Time = {ChangeState.HoldTime}    Polled={ChangeState.Polled}");
+                Debug.Log($"Switch State: CurrentState = {InputMenuAndBack.CurrentState}    Hold Time = {InputMenuAndBack.HoldTime}    Polled={InputMenuAndBack.Polled}");
+                Debug.Log($"Switch State: CurrentState = {InputRightState}");
             }
         }
 
         public void OnRight(InputValue input)
         {
+            
             switch (input.Get<float>())
             {
                 case -1:
                 {
-                    RightState = RightState.Left;
+                    InputRightState = RightState.Left;
                     break;
                 }
                 case 1:
                 {
-                    RightState = RightState.Right;
+                    InputRightState = RightState.Right;
                     break;
                 }
                 default:
                 {
-                    RightState = RightState.None;
+                    InputRightState = RightState.None;
                     break;
                 }
             }
         }
         
-        public void OnStateSwitch(InputValue input)
+        public void OnMenuAndBack(InputValue input)
         {
-            if (input.Get<float>() == 0)
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
+            if (input.Get<float>() == NO_INPUT)
             {
-                ChangeState.OnRelease();
+                InputMenuAndBack.OnRelease();
             }
             else
             {
-                ChangeState.Held();    
+                InputMenuAndBack.Held();    
             }
         }
     }

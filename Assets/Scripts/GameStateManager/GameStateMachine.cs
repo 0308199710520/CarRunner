@@ -1,8 +1,6 @@
-﻿using System;
-using GameStateManager.States;
+﻿using GameStateManager.States;
 using Input;
 using UnityEngine;
-using UnityEngine.Playables;
 
 namespace GameStateManager
 {
@@ -12,7 +10,7 @@ namespace GameStateManager
 
         public readonly GamePlayState PlayState = new();
         public readonly GamePauseState PauseState = new();
-        
+        public Rigidbody Rb;
         
         
         private BaseGameState _currentState;
@@ -22,6 +20,11 @@ namespace GameStateManager
             if (_input is null)
             {
                 _input = FindObjectOfType<InputManager>();
+            }
+
+            if (Rb == null)
+            {
+                Rb = GetComponent<Rigidbody>();
             }
         }
 

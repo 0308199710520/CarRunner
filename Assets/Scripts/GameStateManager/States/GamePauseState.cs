@@ -1,5 +1,4 @@
 ﻿using Input;
-using UnityEngine;
 
 namespace GameStateManager.States
 {
@@ -9,7 +8,6 @@ namespace GameStateManager.States
         public override void OnStart()
         {
             _input = Manager._input;
-
         }
 
         public override void OnUpdate()
@@ -24,7 +22,7 @@ namespace GameStateManager.States
 
         public void SwitchState()
         {
-            if (_input.ChangeState.CurrentState == ButtonState.Down && ! _input.ChangeState.GetPolled())
+            if (_input.InputMenuAndBack.CurrentState == ButtonState.Down && ! _input.InputMenuAndBack.GetPolled())
             {
                 Manager.SwitchState(Manager.PlayState);
             }

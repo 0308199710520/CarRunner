@@ -1,7 +1,4 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
-
-namespace Input
+﻿namespace Input
 {
     public enum RightState
     {

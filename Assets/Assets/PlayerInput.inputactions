@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "StateSwitch",
+                    "name": "MenuAndBack",
                     "type": "Value",
                     "id": "55148ac5-14fe-4dbb-b40e-dcf345186c63",
                     "expectedControlType": "Button",
@@ -65,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard-Mouse",
-                    "action": "StateSwitch",
+                    "action": "MenuAndBack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
