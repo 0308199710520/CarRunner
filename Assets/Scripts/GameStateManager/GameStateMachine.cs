@@ -7,7 +7,7 @@ namespace GameStateManager
     public class GameStateMachine : MonoBehaviour
     {
         // References
-        public InputManager _input { get; private set; }
+        protected InputManager _input { get; private set; }
 
         // States
         public readonly GamePlayState PlayState = new();
