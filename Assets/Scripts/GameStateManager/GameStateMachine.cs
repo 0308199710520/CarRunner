@@ -35,7 +35,7 @@ namespace GameStateManager
 
         public void Start()
         {
-            _currentState = PlayState;
+            _currentState = DeathState;
             _currentState.Manager = this;
             _currentState.OnStart();
         }
