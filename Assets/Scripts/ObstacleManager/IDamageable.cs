@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IDamageable
+namespace ObstacleManager
 {
-    void DamageHealth(int damage);
+    public interface IDamageable
+    {
+        void DamageHealth(int damage);
+    }
 }

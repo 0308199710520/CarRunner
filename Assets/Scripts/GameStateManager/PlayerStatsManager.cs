@@ -1,15 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using ObstacleManager;
 using UnityEngine;
 
-public class PlayerStatsManager : MonoBehaviour, IDamageable
+namespace GameStateManager
 {
-
- [SerializeField] private float Health = 20;
-
-    void IDamageable.DamageHealth(int damage)
+    public class PlayerStatsManager : MonoBehaviour, IDamageable
     {
 
-        Health -= damage;
+        [SerializeField] private float health = 20;
+
+        void IDamageable.DamageHealth(int damage)
+        {
+
+            health -= damage;
+        }
     }
 }

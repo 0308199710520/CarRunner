@@ -9,7 +9,7 @@ namespace GameStateManager.States
 
         public override void OnStart()
         {
-            _input = Manager._input;
+            _input = Manager.Input;
         }
 
         public override void OnUpdate()

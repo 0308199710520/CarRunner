@@ -6,8 +6,8 @@ namespace GameStateManager
 {
     public class GameStateMachine : MonoBehaviour
     {      // References
-        public InputManager _input { get; private set; }
-        public PlayerStatsManager _playerStats { get; private set; }
+        public InputManager Input { get; private set; }
+        public PlayerStatsManager PlayerStats { get; private set; }
 
 
         // States
@@ -18,18 +18,18 @@ namespace GameStateManager
         public readonly GameMainMenuState MainMenuState = new();
 
         // Components
-        public Rigidbody Rb;
+        public Rigidbody Rb { get; private set; }
         private BaseGameState _currentState;
 
         public void Awake()
         {
-            if (_playerStats == null)
+            if (PlayerStats == null)
             {
-                _playerStats = FindObjectOfType<PlayerStatsManager>(); //To Be Reworked When Menu is Added
+                PlayerStats = FindObjectOfType<PlayerStatsManager>(); //To Be Reworked When Menu is Added
             }
-            if (_input is null)
+            if (Input is null)
             {
-                _input = FindObjectOfType<InputManager>();
+                Input = FindObjectOfType<InputManager>();
             }
 
             if (Rb == null)

@@ -2,7 +2,7 @@
 {
     public abstract class BaseGameState
     {
-        public GameStateMachine Manager;
+        internal GameStateMachine Manager;
 
         public abstract void OnStart();
 
