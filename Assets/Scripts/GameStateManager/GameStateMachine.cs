@@ -7,6 +7,8 @@ namespace GameStateManager
     public class GameStateMachine : MonoBehaviour
     {      // References
         public InputManager _input { get; private set; }
+        public PlayerStatsManager _playerStats { get; private set; }
+
 
         // States
         public readonly GamePlayState PlayState = new();
@@ -21,6 +23,10 @@ namespace GameStateManager
 
         public void Awake()
         {
+            if (_playerStats == null)
+            {
+                _playerStats = FindObjectOfType<PlayerStatsManager>(); //To Be Reworked When Menu is Added
+            }
             if (_input is null)
             {
                 _input = FindObjectOfType<InputManager>();
