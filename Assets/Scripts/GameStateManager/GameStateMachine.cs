@@ -5,8 +5,7 @@ using UnityEngine;
 namespace GameStateManager
 {
     public class GameStateMachine : MonoBehaviour
-    {
-        // References
+    {      // References
         public InputManager _input { get; private set; }
 
         // States
@@ -15,7 +14,7 @@ namespace GameStateManager
         public readonly GameDeathState DeathState = new();
         public readonly GameLoadingState LoadingState = new();
         public readonly GameMainMenuState MainMenuState = new();
-        
+
         // Components
         public Rigidbody Rb;
         private BaseGameState _currentState;
@@ -42,7 +41,7 @@ namespace GameStateManager
 
         public void Update()
         {
-            _currentState.OnUpdate();   
+            _currentState.OnUpdate();
         }
 
         public void SwitchState(BaseGameState state)
