@@ -40,6 +40,7 @@ namespace GameStateManager
 
         public void Start()
         {
+            
             _currentState = PlayState;
             _currentState.Manager = this;
             _currentState.OnStart();
