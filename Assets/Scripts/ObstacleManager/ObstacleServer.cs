@@ -19,8 +19,9 @@ namespace ObstacleManager
     public enum Obs
     {
         Null,
+        Air,
         Rock,
-        Crate
+        Crate,
     }
 
 }
