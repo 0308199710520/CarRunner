@@ -1,11 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
-using Random = System.Random;
+using UnityEngine.SocialPlatforms;
 
 namespace ObstacleManager
 {
@@ -13,8 +8,8 @@ namespace ObstacleManager
     {
         private float _lastSpawnDelta = 0f;
         private ObstacleServer _obsServer;
-        
-        [SerializeField, Range(0.01f, 1f)]private float delayDelta = 0.5f; // To be removed once speed is implimented
+        [SerializeField, Range(0.01f, 1f)] private float _speed = 1f;
+        [SerializeField, Range(0.01f, 1f)] private float delayDelta = 0.5f; // To be removed once speed is implimented
         
         [SerializeField] private int[] _positionOffset = { -6, -4, -2, 0, 2, 4, 6 };
 
@@ -32,6 +27,12 @@ namespace ObstacleManager
 
         private void Update()
         {
+            Spawn();
+            UpdatePositions();
+        }
+
+        private void Spawn()
+        {
             if (_lastSpawnDelta >= delayDelta)
             {
                 /*
@@ -41,11 +42,19 @@ namespace ObstacleManager
                  * Randomly placing them is completely arbitrary at the moment.
                  * 
                  */
-                SpawnObs(_positionOffset[RandomNumberGenerator.GetInt32(0, 8)], Obs.Rock);
+                SpawnObs(_positionOffset[Random.Range(0, 8)], Obs.Rock); // only rock prefab is being used for now
             }
             else _lastSpawnDelta += Time.deltaTime;
         }
 
+        private void UpdatePositions()
+        {
+            foreach (var obs in spawnedObs)
+            {
+                obs.transform.position += Vector3.back * _speed * Time.deltaTime;
+            }
+        }
+        
         private void SpawnObs(int offset, Obs obs)
         {
             GameObject newObject = null;
@@ -58,12 +67,11 @@ namespace ObstacleManager
                 case Obs.Air:
                     return;
                 case Obs.Rock:
-                    newObject = Instantiate(Rock, new Vector3( 0 + offset, 0, 0), Quaternion.identity);
+                    newObject = Instantiate(Rock, new Vector3(0 + offset, 0, 0), Quaternion.identity);
                     break;
             }
 
-            spawnedObs.Add(newObject);
+            spawnedObs?.Add(newObject);
         }
-        
     }
 }
