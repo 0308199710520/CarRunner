@@ -20,7 +20,6 @@ namespace GameStateManager.States
 
         public override void OnLeave()
         {
-            
         }
 
         private void MoveCar()
@@ -36,7 +35,6 @@ namespace GameStateManager.States
                 {
                     Manager.Rb.velocity = Vector3.left;
                     break;
-
                 }
                 case RightState.Right:
                 {
@@ -48,10 +46,8 @@ namespace GameStateManager.States
 
         private void ChangeState()
         {
-            if (_input.InputMenuAndBack.CurrentState == ButtonState.Down && ! _input.InputMenuAndBack.GetPolled())
-            {
+            if (_input.InputMenuAndBack.CurrentState == ButtonState.Down && !_input.InputMenuAndBack.GetPolled())
                 Manager.SwitchState(Manager.PauseState);
-            }
         }
     }
 }
