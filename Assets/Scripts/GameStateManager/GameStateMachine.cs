@@ -23,8 +23,7 @@ namespace GameStateManager
 
         public void Awake()
         {
-            if (PlayerStats == null)
-                PlayerStats = FindObjectOfType<PlayerStatsManager>(); //To Be Reworked When Menu is Added
+            if (PlayerStats == null) PlayerStats = FindObjectOfType<PlayerStatsManager>(); //To Be Reworked When Menu is Added
             if (Input is null) Input = FindObjectOfType<InputManager>();
 
             if (Rb == null) Rb = GetComponent<Rigidbody>();

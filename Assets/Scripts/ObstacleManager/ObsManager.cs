@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ObstacleManager
 {
@@ -39,7 +41,8 @@ namespace ObstacleManager
                  * Randomly placing them is completely arbitrary at the moment.
                  * 
                  */
-                SpawnObs(_positionOffset[Random.Range(0, 7)], Obs.Rock); // only rock prefab is being used for now
+                SpawnObs(_positionOffset[Random.Range(0, _positionOffset.Length)],
+                    Obs.Rock); // only rock prefab is being used for now
                 _lastSpawnDelta = 0;
             }
             else
@@ -52,10 +55,7 @@ namespace ObstacleManager
         {
             foreach (var obs in _spawnedObs)
                 if (obs.transform.position.z < boundsDistance)
-                {
-                    print("DISTANCE CHECK");
                     MarkedForDeath(obs);
-                }
         }
 
         public void MarkedForDeath(GameObject obs)
@@ -93,12 +93,18 @@ namespace ObstacleManager
                 case Obs.Air:
                     return;
                 case Obs.Rock:
+                {
                     newObject = Instantiate(rock, new Vector3(0 + offset, 0, 0), Quaternion.identity);
                     newObject.GetComponent<Rock>().SetObsManager(this);
                     break;
+                }
+                case Obs.Crate:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(obs), obs, null);
             }
 
-            _spawnedObs?.Add(newObject);
+            if (_spawnedObs != null) _spawnedObs.Add(newObject);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace GameStateManager.States
         {
         }
 
-        public void SwitchState()
+        private void SwitchState()
         {
             if (_input.InputMenuAndBack.CurrentState == ButtonState.Down && !_input.InputMenuAndBack.GetPolled())
                 Manager.SwitchState(Manager.PlayState);
