@@ -4,23 +4,22 @@ namespace ObstacleManager
 {
     public class BaseObs : MonoBehaviour
     {
-        
-        private readonly int _damageValue = 5;
+        private const int DAMAGE_VALUE = 5;
+        private ObsManager _obstacleManager;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.GetComponent<IDamageable>() is null) return;
-            
-            other.gameObject.GetComponent<IDamageable>().DamageHealth(_damageValue);
-            if (other.gameObject.GetComponent<IDamageable>() != null) 
-            {
-                Destroy(gameObject);
-                Debug.Log("Destroyed");
-            }
+
+            other.gameObject.GetComponent<IDamageable>().DamageHealth(DAMAGE_VALUE);
+
+            _obstacleManager.MarkedForDeath(gameObject);
+            Debug.Log("Destroyed");
         }
 
-        private void Update()
+        public void SetObsManager(ObsManager obsManager)
         {
-            transform.position += Vector3.back * Time.deltaTime * 100;
+            _obstacleManager = obsManager;
         }
     }
 }

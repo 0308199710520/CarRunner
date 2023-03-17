@@ -5,6 +5,7 @@ namespace GameStateManager.States
     public class GamePauseState : BaseGameState
     {
         private InputManager _input;
+
         public override void OnStart()
         {
             _input = Manager.Input;
@@ -17,15 +18,12 @@ namespace GameStateManager.States
 
         public override void OnLeave()
         {
-            
         }
 
-        public void SwitchState()
+        private void SwitchState()
         {
-            if (_input.InputMenuAndBack.CurrentState == ButtonState.Down && ! _input.InputMenuAndBack.GetPolled())
-            {
+            if (_input.InputMenuAndBack.CurrentState == ButtonState.Down && !_input.InputMenuAndBack.GetPolled())
                 Manager.SwitchState(Manager.PlayState);
-            }
         }
     }
 }
