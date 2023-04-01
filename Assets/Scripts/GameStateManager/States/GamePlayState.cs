@@ -6,10 +6,11 @@ namespace GameStateManager.States
     public class GamePlayState : BaseGameState
     {
         private InputManager _input;
-
+        private PlayerStatsManager _playerStats;
         public override void OnStart()
         {
             _input = Manager.Input;
+            _playerStats = Manager.PlayerStats;
         }
 
         public override void OnUpdate()
@@ -33,12 +34,12 @@ namespace GameStateManager.States
                 }
                 case RightState.Left:
                 {
-                    Manager.Rb.velocity = Vector3.left;
+                    Manager.Rb.velocity = Vector3.left * (_playerStats.GetSpeed() * Time.deltaTime);
                     break;
                 }
                 case RightState.Right:
                 {
-                    Manager.Rb.velocity = Vector3.right;
+                    Manager.Rb.velocity = Vector3.right * (_playerStats.GetSpeed() * Time.deltaTime);
                     break;
                 }
             }
